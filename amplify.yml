@@ -1,4 +1,3 @@
-
 # https://docs.aws.amazon.com/amplify/latest/userguide/deploy-nextjs-app.html
 
 version: 1
@@ -14,7 +13,7 @@ frontend:
   artifacts:
     baseDirectory: .next
     files:
-      - '**/*'
+      - "**/*"
   cache:
     paths:
       - node_modules/**/*

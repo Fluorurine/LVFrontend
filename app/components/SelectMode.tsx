@@ -7,13 +7,14 @@ interface SelectModeProps {
 const SelectMode: React.FC<SelectModeProps> = ({ onClick }) => {
 	// fetch the assistantMode from cache if available otherwise default to basic
 	const [mode, setMode] = useState<"basic" | "agentic">(() => {
-		const storedMode = localStorage.getItem("assistantMode");
+		// const storedMode = localStorage.getItem("assistantMode");
+		const storedMode = "agentic";
 		return storedMode === "agentic" ? "agentic" : "basic";
 	});
 
 	const handleModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedMode = e.target.value as "basic" | "agentic";
-		localStorage.setItem("assistantMode", String(selectedMode));
+		// localStorage.setItem("assistantMode", String(selectedMode));
 		setMode(selectedMode);
 		onClick(selectedMode);
 	};
