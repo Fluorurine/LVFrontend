@@ -3,8 +3,8 @@
 import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import ChatApp from "./components/ChatApp";
-import awsconfig from "./aws-exports";
+import DropZone from "@/components/DropZone";
+import awsconfig from "@/aws-exports";
 import React, { useState, ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -56,8 +56,11 @@ export default function IndexPage() {
 								setSidebarOpen={setSidebarOpen}
 							/>
 						</div>
-						<main className="flex-grow mt-4 flex items-center justify-center w-3/4	">
-							<ChatApp />
+						<main className=" flex-col mt-4 flex justify-top mx-auto w-3/4">
+							<span className="text-center text-gray-600">
+								Hãy cập nhật CV của bạn
+							</span>
+							<DropZone />
 						</main>
 					</div>
 					<footer className="bg-white p-4 shadow-sm w-full text-xs">

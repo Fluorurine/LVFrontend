@@ -3,8 +3,8 @@
 import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import ChatApp from "./components/ChatApp";
-import awsconfig from "./aws-exports";
+import RAGChatApp from "@/components/RAGChatApp";
+import awsconfig from "@/aws-exports";
 import React, { useState, ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -35,7 +35,7 @@ export default function IndexPage() {
 				<div className="min-h-screen flex flex-col justify-center items-center ">
 					<header className="bg-white p-4 shadow-sm shadow-gray-300 w-full flex justify-between">
 						<h1 className="text-2xl pt-1 font-bold bg-gradient-to-r text-transparent from-indigo-500 to-orange-500 bg-clip-text">
-							Chatbot by Truong
+							Chatbot by Truong RAG
 						</h1>
 						<div className="flex items-center ">
 							<div className="mr-4 text-gray-600 hover:text-gray-80">
@@ -56,8 +56,8 @@ export default function IndexPage() {
 								setSidebarOpen={setSidebarOpen}
 							/>
 						</div>
-						<main className="flex-grow mt-4 flex items-center justify-center w-3/4	">
-							<ChatApp />
+						<main className="flex-grow mt-4 flex justify-center w-3/4	">
+							<RAGChatApp />
 						</main>
 					</div>
 					<footer className="bg-white p-4 shadow-sm w-full text-xs">
