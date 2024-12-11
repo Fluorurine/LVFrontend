@@ -159,7 +159,7 @@ const menuGroups = [
 					</svg>
 				),
 				label: "Tìm kiếm từ khóa",
-				route: "search",
+				route: "searchpage",
 			},
 			{
 				icon: (
