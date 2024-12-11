@@ -19,18 +19,18 @@ const ChatApp: React.FC = () => {
 	const [clean_history, setCleanHistory] = useState<boolean>(false);
 	const [debugMode, setDebugMode] = useState(false);
 	const [assistantMode, setAssistantMode] = useState<"basic" | "agentic">(
-		"basic"
+		"agentic"
 	);
 	const messageContainerRef = useRef<HTMLDivElement>(null);
 	const [loading, setLoading] = useState(false);
 
-	useEffect(() => {
-		const storedDebugMode = localStorage.getItem("debugMode");
-		setDebugMode(storedDebugMode === "false");
+	// useEffect(() => {
+	// 	const storedDebugMode = localStorage.getItem("debugMode");
+	// 	setDebugMode(storedDebugMode === "false");
 
-		const storedAssistantMode = localStorage.getItem("assistantMode");
-		setAssistantMode(storedAssistantMode === "agentic" ? "agentic" : "basic");
-	}, []);
+	// 	const storedAssistantMode = localStorage.getItem("assistantMode");
+	// 	setAssistantMode(storedAssistantMode === "agentic" ? "agentic" : "basic");
+	// }, []);
 
 	const handleSendMessage = async (message: string) => {
 		const defaultErrorMessage =
@@ -65,6 +65,14 @@ const ChatApp: React.FC = () => {
 				}),
 			});
 			const responseData = await response.json();
+			console.log(
+				JSON.stringify({
+					user_input: message,
+					session_id: userAttributes.sub,
+					clean_history: clean_history,
+					chatbot_type: assistantMode,
+				})
+			);
 			console.log(responseData);
 			// Add the response to the messages state after receiving it
 			setCleanHistory(false);
