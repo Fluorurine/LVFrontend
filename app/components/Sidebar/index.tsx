@@ -159,7 +159,7 @@ const menuGroups = [
 					</svg>
 				),
 				label: "Tìm kiếm từ khóa",
-				route: "/search",
+				route: "search",
 			},
 			{
 				icon: (
@@ -186,7 +186,7 @@ const menuGroups = [
 					</svg>
 				),
 				label: "Quản lý",
-				route: "/profile",
+				route: "profile",
 			},
 		],
 	},
