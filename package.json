@@ -18,7 +18,9 @@
     "react-dom": "^18",
     "react-dropzone": "^14.3.5",
     "react-markdown": "^9.0.1",
-    "react-pdf": "^9.1.1"
+    "react-pdf": "^9.1.1",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^22",

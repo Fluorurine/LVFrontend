@@ -1,6 +1,7 @@
 // import { ButtonGroup } from "@aws-amplify/ui-react";
 import React from "react";
 import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import { useState } from "react";
 interface SearchMessageProps {
 	content: string;
@@ -80,7 +81,22 @@ const SearchMessage: React.FC<SearchMessageProps> = ({
 								isExpanded ? "" : "line-clamp-3"
 							}`}
 						>
-							<Markdown className=" max-w-[135ch] prose ">{content}</Markdown>
+							<Markdown
+								className=" max-w-[135ch] prose "
+								rehypePlugins={[rehypeRaw]}
+								components={{
+									// Handle the custom 'highlight' tag
+									span: ({ children }) => (
+										<span
+											style={{ backgroundColor: "yellow", padding: "0 2px" }}
+										>
+											{children}
+										</span>
+									),
+								}}
+							>
+								{content}
+							</Markdown>
 						</div>
 						<button
 							onClick={toggleText}

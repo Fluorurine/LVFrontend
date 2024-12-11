@@ -2,9 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import SearchMessage from "./SearchMessage";
-import ClearButton from "./ClearButton";
-import SelectMode from "./SelectMode";
-import DebugToggleSwitch from "./DebugToggleSwitch";
+
 // import { useRouter } from "next/router";
 import { IconSend2 } from "@tabler/icons-react";
 import { fetchAuthSession, fetchUserAttributes } from "aws-amplify/auth";
@@ -16,46 +14,18 @@ interface Message {
 	score: number;
 }
 
-const score = 0.5;
-const source_doc = "https://www.google.com.vn";
-const file_name = "test.pdf";
 // const bgColor = "Hello";
 const ChatApp: React.FC = () => {
-	const [messages, setMessages] = useState<Message[]>([
-		// {
-		// 	content:
-		// 		"HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellooHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellooHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHeHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellooHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellooHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellooHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHellolloHelloHelloHelloHelloHelloHellooHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello",
-		// 	score: score,
-		// 	source_doc: source_doc,
-		// 	file_name: file_name,
-		// },
-		// {
-		// 	content: "Hello",
-		// 	score: score,
-		// 	source_doc: source_doc,
-		// 	file_name: file_name,
-		// },
-	]);
+	const [messages, setMessages] = useState<Message[]>([]);
 	const [clean_history, setCleanHistory] = useState<boolean>(false);
-	const [debugMode, setDebugMode] = useState(false);
-	const [assistantMode, setAssistantMode] = useState<"basic" | "agentic">(
-		"basic"
-	);
-
+	const [loading, setLoading] = useState(false);
 	const messageContainerRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		const storedDebugMode = localStorage.getItem("debugMode");
-		setDebugMode(storedDebugMode === "true");
-
-		const storedAssistantMode = localStorage.getItem("assistantMode");
-		setAssistantMode(storedAssistantMode === "agentic" ? "agentic" : "basic");
-	}, []);
 
 	const handleSendMessage = async (message: string) => {
 		const defaultErrorMessage =
 			"Đã có sự cố xảy ra trong quá trình lấy dữ liệu. Vui lòng thử lại";
-		// fetch the cognito authentication tokens to use with the API call.
+		// fetch the cognito authentication tokens to use with the API call if dont have already yet.
+
 		const authToken = (await fetchAuthSession()).tokens?.idToken?.toString();
 		const userAttributes = await fetchUserAttributes();
 		// Append the user's input message to the message container immediately
@@ -72,20 +42,8 @@ const ChatApp: React.FC = () => {
 		// Call the API to get the response
 		const rest_api_endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT ?? "";
 		try {
-			console.log("Sening");
-			const testmsg = `Designing navigation and manipulation interface for Fetch Manipulator Robot platforms using Python and ROS.
-o Building Object Oriented Programming classes to control Fetch Robot on low-level.
-o Applying AprilTag3D to track objects of interest’s positions in camera frame.
-o Subscribing to Robot Operation System (ROS) with Rospy to update robot’s joint states in real-time.
-o Performing matrix transformation to transform among different frames of Fetch using Numpy.
-• Designed a wearable device for data collector that enable robot sensors (LiDAR, 3D camera, Odometry).
-• Led a team of 13 people to collect more than 20 hours of socially-complaint human navigation dataset for robot learning.
-o Published an academic paper to International Conference on Intelligent Robots and System (IROS)
-Research Engineer | Department of Electrical Engineering, Miami University | OH, USA August 2020 – December 2021
-• Implemented Deep Deterministic Policy Gradient in Pytorch to optimally control Unmanned Aerial Vehicles in group.
-• Developed a Python simulation enabling feedback from ground-based users, enhancing the overall UAV system.
-• Built an interactive graph with JavaScript and Python that can visualize causal relationships.
-• Published a book chapter to Broadband Communications, Computing, and Control for Ubiquitous Intelligence.`;
+			setLoading(true);
+			// console.log("Sening");
 			const response = await fetch(rest_api_endpoint, {
 				// mode: "no-cors",
 				method: "POST",
@@ -106,6 +64,7 @@ Research Engineer | Department of Electrical Engineering, Miami University | OH,
 			const responseData = await response.json();
 			const responseData2 = JSON.parse(responseData.response);
 			console.log(responseData2);
+			setLoading(false);
 
 			let searcharray: Message[] = [];
 			responseData2.forEach((response: any) => {
@@ -118,36 +77,7 @@ Research Engineer | Department of Electrical Engineering, Miami University | OH,
 			});
 			console.log(searcharray);
 			setMessages(searcharray);
-			// Add the response to the messages state after receiving it
-			// setCleanHistory(false);
-			// let AIMessage: Message;
-			// if (responseData.errorMessage && debugMode) {
-			// 	AIMessage = {
-			// 		content: `Error: ${
-			// 			responseData.errorMessage
-			// 		}\n\nDetails: \n\n\`\`\`\n\n${JSON.stringify(
-			// 			responseData,
-			// 			null,
-			// 			2
-			// 		)}\n\n\`\`\``,
-			// 		isUser: false,
-			// 	};
-			// } else if (responseData.errorMessage) {
-			// 	AIMessage = { content: defaultErrorMessage, isUser: false };
-			// } else {
-			// 	AIMessage = { content: responseData.response, isUser: false };
-			// }
-			// setMessages((prevMessages) => [...prevMessages, AIMessage]);
 		} catch {
-			// setMessages((prevMessages) => [
-			// 	...prevMessages,
-			// 	{
-			// 		content: defaultErrorMessage,
-			// 		score: score,
-			// 		source_doc: source_doc,
-			// 		file_name: file_name,
-			// 	},
-			// ]);
 			console.log("Có lỗi xảy ra trong quá trình tương tác dữ liệu từ server");
 		}
 	};
@@ -186,7 +116,7 @@ Research Engineer | Department of Electrical Engineering, Miami University | OH,
 						autoComplete="off"
 					></textarea>
 					<button
-						className="px-2 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-2 focus:bg-blue-600 flex items-center"
+						className="px-2 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 flex items-center"
 						onClick={() => {
 							const inputElement = document.getElementById(
 								"chat-message-input"
@@ -208,6 +138,18 @@ Research Engineer | Department of Electrical Engineering, Miami University | OH,
 					ref={messageContainerRef}
 					className="h-[calc(100vh-260px)] px-4 overflow-hidden hover:overflow-y-scroll border-t border-gray-200 "
 				>
+					{loading && (
+						<div className="text-center mt-3 text-gray-500">
+							Vui lòng chờ trong lúc hệ thống gửi dữ liệu...
+						</div>
+					)}
+
+					{messages.length === 0 && (
+						<div className="text-center mt-3 text-gray-500">
+							Không có dữ liệu
+						</div>
+					)}
+
 					{messages.map((message, index) => (
 						<SearchMessage
 							key={index}
@@ -220,7 +162,7 @@ Research Engineer | Department of Electrical Engineering, Miami University | OH,
 						/>
 					))}
 				</div>
-				<div className="flex justify-between mt-2 items-center w-full">
+				{/* <div className="flex justify-between mt-2 items-center w-full">
 					<DebugToggleSwitch onToggle={(value) => setDebugMode(value)} />
 					<SelectMode
 						onClick={(mode) => {
@@ -234,7 +176,7 @@ Research Engineer | Department of Electrical Engineering, Miami University | OH,
 							setCleanHistory(true);
 						}}
 					/>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

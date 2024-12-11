@@ -52,6 +52,7 @@ export default function IndexPage() {
 					<div className="flex w-full">
 						<div className="w-[250px] border ">
 							<Sidebar
+								highlight={2}
 								sidebarOpen={sidebarOpen}
 								setSidebarOpen={setSidebarOpen}
 							/>

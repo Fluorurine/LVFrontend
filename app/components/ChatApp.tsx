@@ -22,10 +22,11 @@ const ChatApp: React.FC = () => {
 		"basic"
 	);
 	const messageContainerRef = useRef<HTMLDivElement>(null);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const storedDebugMode = localStorage.getItem("debugMode");
-		setDebugMode(storedDebugMode === "true");
+		setDebugMode(storedDebugMode === "false");
 
 		const storedAssistantMode = localStorage.getItem("assistantMode");
 		setAssistantMode(storedAssistantMode === "agentic" ? "agentic" : "basic");
@@ -46,6 +47,7 @@ const ChatApp: React.FC = () => {
 		// Call the API to get the response
 		const rest_api_endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT ?? "";
 		try {
+			setLoading(true);
 			const response = await fetch(rest_api_endpoint, {
 				// mode: "no-cors",
 				method: "POST",
@@ -63,6 +65,7 @@ const ChatApp: React.FC = () => {
 				}),
 			});
 			const responseData = await response.json();
+			console.log(responseData);
 			// Add the response to the messages state after receiving it
 			setCleanHistory(false);
 			let AIMessage: Message;
@@ -83,6 +86,7 @@ const ChatApp: React.FC = () => {
 				AIMessage = { content: responseData.response, isUser: false };
 			}
 			setMessages((prevMessages) => [...prevMessages, AIMessage]);
+			setLoading(false);
 		} catch {
 			setMessages((prevMessages) => [
 				...prevMessages,
@@ -115,6 +119,11 @@ const ChatApp: React.FC = () => {
 						/>
 					))}
 				</div>
+				{loading && (
+					<div className="text-center mt-3 text-black">
+						Vui lòng chờ trong lúc hệ thống gửi dữ liệu...
+					</div>
+				)}
 				<div className="flex space-x-2">
 					<input
 						id="chat-message-input"
@@ -133,7 +142,7 @@ const ChatApp: React.FC = () => {
 						autoComplete="off"
 					/>
 					<button
-						className="px-2 py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-2 focus:bg-blue-600 flex items-center"
+						className="px-2 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-2 focus:bg-blue-600 flex items-center"
 						onClick={() => {
 							const inputElement = document.getElementById(
 								"chat-message-input"
@@ -146,7 +155,7 @@ const ChatApp: React.FC = () => {
 							}
 						}}
 					>
-						Send
+						Gửi
 						<IconSend2 className="h-5 w-5 text-white ml-2" />
 					</button>
 				</div>

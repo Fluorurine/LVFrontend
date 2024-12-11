@@ -13,6 +13,9 @@ const UploadComponent: React.FC = () => {
 	const [files, setFiles] = useState<File[]>([]);
 	const [error, setError] = useState<string | null>(null);
 	const [category, setCategory] = useState<string | null>("Data");
+	const [loading, setLoading] = useState(false);
+	const [success, setSuccess] = useState(false);
+	const [doc, setDoc] = useState<any[]>([]);
 	// Handle file drops with validation
 	const onDrop = useCallback((acceptedFiles: File[]) => {
 		setError(null); // Reset error on new drop
@@ -46,7 +49,10 @@ const UploadComponent: React.FC = () => {
 
 	// Handle file submission
 	const handleSubmit = async () => {
-		console.log("first");
+		// console.log("first");
+		setError(null);
+		setLoading(true);
+		setSuccess(false);
 		if (files.length === 0) {
 			setError("No files to upload");
 			return;
@@ -112,10 +118,15 @@ const UploadComponent: React.FC = () => {
 				});
 
 				if (!response.ok) {
-					throw new Error(`Upload failed: ${response.statusText}`);
+					// throw new Error(`Upload failed: ${response.statusText}`);
+					console.log("Dữ liệu không hợp lệ");
 				}
 
 				const result = await response.json();
+				setDoc(JSON.parse(result.body).uploadResults);
+				// console.log(doc);
+				setLoading(false);
+				setSuccess(true);
 				// console.log(`Success: ${result.uploadResults}`);
 				console.log(result);
 
@@ -147,7 +158,9 @@ const UploadComponent: React.FC = () => {
 				}}
 			>
 				<input {...getInputProps()} />
-				<p>Drag & drop your PDF files here, or click to select files</p>
+				<p>
+					Kéo hoặc thả các tệp PDF của bạn ở đây, hoặc nhấn click để chọn tệp
+				</p>
 			</div>
 
 			{error && <p style={{ color: "red" }}>{error}</p>}
@@ -168,7 +181,7 @@ const UploadComponent: React.FC = () => {
 									cursor: "pointer",
 								}}
 							>
-								Remove
+								Xóa
 							</button>
 						</li>
 					))}
@@ -186,7 +199,7 @@ const UploadComponent: React.FC = () => {
 						cursor: "pointer",
 					}}
 				>
-					Data Category
+					Danh mục Data
 				</button>
 				<button
 					onClick={() => selectCategory("Fullstack")}
@@ -198,7 +211,7 @@ const UploadComponent: React.FC = () => {
 						cursor: "pointer",
 					}}
 				>
-					Fullstack Category
+					Danh mục Fullstack
 				</button>
 			</div>
 			<button
@@ -213,8 +226,22 @@ const UploadComponent: React.FC = () => {
 				}}
 				disabled={files.length === 0 || !category}
 			>
-				Submit Files
+				Gửi tệp tin lên
 			</button>
+			{loading && <div>Đang tải lên...</div>}
+			{success && <div>Đã tải lên thành công!</div>}
+			{doc.length > 0 && (
+				<div>
+					<h2 className=" mt-[50px]">Kết quả tải lên:</h2>
+					<ul>
+						{doc.map((item, index) => (
+							<li key={index}>
+								{item.fileName} - {item.status} - {item.message}
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
 		</div>
 	);
 };

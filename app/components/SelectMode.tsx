@@ -21,7 +21,7 @@ const SelectMode: React.FC<SelectModeProps> = ({ onClick }) => {
 
 	return (
 		<div className="text-gray-600 text-sm hover:text-gray-800 hover:shadow-sm focus:outline-none flex items-center space-x-2">
-			<span>Assistant Mode</span>
+			<span>Chế độ hỗ trợ</span>
 			<label>
 				<input
 					type="radio"
@@ -29,7 +29,7 @@ const SelectMode: React.FC<SelectModeProps> = ({ onClick }) => {
 					checked={mode === "basic"}
 					onChange={handleModeChange}
 				/>
-				<span className="ml-1">Basic</span>
+				<span className="ml-1">Bình thường</span>
 			</label>
 			<label>
 				<input
