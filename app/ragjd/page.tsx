@@ -6,8 +6,6 @@ import "@aws-amplify/ui-react/styles.css";
 import RAGChatApp from "@/components/RAGChatApp";
 import awsconfig from "@/aws-exports";
 import React, { useState, ReactNode } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 Amplify.configure(awsconfig, { ssr: true });
 
