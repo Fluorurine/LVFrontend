@@ -180,6 +180,7 @@ const CVPage: React.FC<ChildProps> = ({ docId }) => {
 	// ----------------------------------------------------------
 	return (
 		<div className="w-full  shadow-md sm:rounded-lg  ml-4">
+			{/* eslint-enable react/no-unescaped-entities */}
 			{/* <h1>Thông tin CV của bạn:</h1> */}
 			<div className="flex flex-row justify-start">
 				<div className="w-[750]">
@@ -283,6 +284,7 @@ const CVPage: React.FC<ChildProps> = ({ docId }) => {
 					</div>
 				</div>
 			</div>
+			{/* eslint-enable react/no-unescaped-entities */}
 		</div>
 	);
 };
