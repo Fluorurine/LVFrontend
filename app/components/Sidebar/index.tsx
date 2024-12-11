@@ -55,7 +55,7 @@ const menuGroups = [
 					</svg>
 				),
 				label: "Cập nhật CV",
-				route: "uploadcv",
+				route: "/uploadcv",
 			},
 			{
 				icon: (
@@ -102,7 +102,7 @@ const menuGroups = [
 					</svg>
 				),
 				label: "Tìm kiếm JD",
-				route: "ragjd",
+				route: "/ragjd",
 				// children: [{ label: "eCommerce", route: "/" }],
 			},
 			{
@@ -159,7 +159,7 @@ const menuGroups = [
 					</svg>
 				),
 				label: "Tìm kiếm từ khóa",
-				route: "searchpage",
+				route: "/searchpage",
 			},
 			{
 				icon: (
@@ -186,7 +186,7 @@ const menuGroups = [
 					</svg>
 				),
 				label: "Quản lý",
-				route: "profile",
+				route: "/profile",
 			},
 		],
 	},
